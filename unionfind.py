@@ -3,39 +3,42 @@ class UnionFind:
   Attributes
   ----------
   t: int
-  1次元配列か2次元配列かを選択する
+    1次元配列か2次元配列かを選択する
   par: List[int] or List[List[int]]
-  どのグループに属するかを保存する
+    どのグループに属するかを保存する
   size: int
-  そのノードが属するグループのサイズを保存する
+    そのノードが属するグループのサイズを保存する
   len: int
-  横の長さ(1次元方向の長さ)
-  width: int
-  縦の長さ(2次元方向の長さ)
+    横の長さ(1次元方向の長さ)
+  height: int
+    縦の長さ(2次元方向の長さ)
   """
-  def __init__(self, t=1, h=0, w=0):
+  def __init__(self, t=1, w=0, h=0):
     """
     Parameter
     ---------
     t: int
-    1次元配列か二次元配列かを選択する
-    h: int
-    一次元方向の長さ
+      1次元配列か二次元配列かを選択する
     w: int
-    2次元方向の長さ
+      1次元方向の長さ
+    h: int
+      2次元方向の長さ
     """
     if t == 1:
       self.t = 1
-      self.par = [-1]*h
-      self.size = [1]*h
-      self.len = h
+      self.par = [-1]*w
+      self.size = [1]*w
+      self.len = w
     elif t == 2:
       self.t = 2
-      self.par = [[-1 for i in range(h)] for j in range(w)]
-      self.size = [[1]*h for i in range(w)]
-      self.len = h
-      self.width = w
+      self.par = [[-1 for i in range(w)] for j in range(h)]
+      self.size = [[1]*w for i in range(h)]
+      self.len = w
+      self.height = h
     else:
+      """
+      3次元以上は未実装
+      """
       self.t = 0
       self.par = []
       self.size = []
@@ -51,9 +54,9 @@ class UnionFind:
     Parameter
     ---------
     x: int or List[int]
-    ノード1の位置
+      ノード1の位置
     y: int or List[int]
-    ノード2の位置
+      ノード2の位置
     """
     if self.t == 1:
       return self.root(x) == self.root(y)
@@ -69,7 +72,7 @@ class UnionFind:
     Parameter
     ---------
     x: int or List[int]
-    ノードの位置
+      ノードの位置
     """
     if self.t == 1:
       if self.par[x] == -1:
@@ -93,9 +96,9 @@ class UnionFind:
     Parameter
     ---------
     x: int or List[int]
-    ノード1の位置
+      ノード1の位置
     y: int or List[int]
-    ノード2の位置
+      ノード2の位置
     """
     x, y = self.root(x), self.root(y)
     if self.t == 1:
@@ -133,7 +136,7 @@ class UnionFind:
     Parameter
     ---------
     x: int or List[int]
-    ノードの位置
+      ノードの位置
     """
     if self.t == 1:
       return self.size[self.root(x)]
