@@ -31,7 +31,7 @@ class UnionFind:
       self.len = w
     elif t == 2:
       self.t = 2
-      self.par = [[-1 for i in range(w)] for j in range(h)]
+      self.par = [[-1]*w for j in range(h)]
       self.size = [[1]*w for i in range(h)]
       self.len = w
       self.height = h
