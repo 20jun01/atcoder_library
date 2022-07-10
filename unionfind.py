@@ -1,5 +1,29 @@
 class UnionFind:
+  """
+  Attributes
+  ----------
+  t: int
+  1次元配列か2次元配列かを選択する
+  par: List[int] or List[List[int]]
+  どのグループに属するかを保存する
+  size: int
+  そのノードが属するグループのサイズを保存する
+  len: int
+  横の長さ(1次元方向の長さ)
+  width: int
+  縦の長さ(2次元方向の長さ)
+  """
   def __init__(self, t=1, h=0, w=0):
+    """
+    Parameter
+    ---------
+    t: int
+    1次元配列か二次元配列かを選択する
+    h: int
+    一次元方向の長さ
+    w: int
+    2次元方向の長さ
+    """
     if t == 1:
       self.t = 1
       self.par = [-1]*h
@@ -21,6 +45,16 @@ class UnionFind:
     return self.len
   
   def is_same(self, x, y):
+    """
+    xとyが同じグループに属するかを判定する
+    
+    Parameter
+    ---------
+    x: int or List[int]
+    ノード1の位置
+    y: int or List[int]
+    ノード2の位置
+    """
     if self.t == 1:
       return self.root(x) == self.root(y)
     elif self.t == 2:
@@ -29,6 +63,14 @@ class UnionFind:
       return rx[0] == ry[0] and rx[1] == ry[1]
   
   def root(self, x):
+    """
+    xの親要素の位置を取得する
+    
+    Parameter
+    ---------
+    x: int or List[int]
+    ノードの位置
+    """
     if self.t == 1:
       if self.par[x] == -1:
         return x
@@ -45,6 +87,16 @@ class UnionFind:
         return tmp[:]
       
   def unite(self, x, y):
+    """
+    xとyを合体
+    
+    Parameter
+    ---------
+    x: int or List[int]
+    ノード1の位置
+    y: int or List[int]
+    ノード2の位置
+    """
     x, y = self.root(x), self.root(y)
     if self.t == 1:
       if x == y:
@@ -75,6 +127,14 @@ class UnionFind:
           return True
   
   def size(self, x):
+    """
+    xの属するグループの大きさを取得
+    
+    Parameter
+    ---------
+    x: int or List[int]
+    ノードの位置
+    """
     if self.t == 1:
       return self.size[self.root(x)]
 
